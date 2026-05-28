@@ -53,14 +53,16 @@ public class Main {
             System.out.println("====================================================");
             System.out.println();
 
+            List<SaveManager.SaveInfo> saves = SaveManager.listSaves();
+            boolean hasAnySave = saves.stream().anyMatch(s -> s.exists);
+
             boolean loadSave = false;
-            if (SaveManager.hasSave()) {
+            if (hasAnySave) {
                 System.out.println("  1. Νέο Παιχνίδι");
-                System.out.println("  2. Συνέχεια");
+                System.out.println("  2. Φόρτωση Παιχνιδιού");
                 System.out.println();
                 System.out.print("  Επιλογή: ");
-                String choice = scanner.nextLine().trim();
-                loadSave = choice.equals("2");
+                loadSave = scanner.nextLine().trim().equals("2");
             } else {
                 System.out.println("  1. Νέο Παιχνίδι");
                 System.out.println();
@@ -72,12 +74,12 @@ public class Main {
             System.out.println("====================================================");
 
             if (loadSave) {
-                SaveManager.load(state);
-                System.out.println("[ Φορτώθηκε αποθηκευμένο παιχνίδι ]");
+                int slot = pickSlot(scanner, saves, "  ΦΟΡΤΩΣΗ ΠΑΙΧΝΙΔΙΟΥ", true);
+                state.setCurrentSlot(slot);
+                SaveManager.load(state, slot);
+                System.out.println("[ Φορτώθηκε Slot " + slot + " ]");
                 System.out.println("----------------------------------------------------");
             } else {
-                if (SaveManager.hasSave()) SaveManager.deleteSave();
-
                 System.out.println("  Επιλογή Δυσκολίας:");
                 System.out.println("  1. Εύκολο");
                 System.out.println("  2. Κανονικό");
@@ -102,9 +104,14 @@ public class Main {
                         System.out.println("\n  [ Κανονικό: Inventory 4 θέσεων, 5 νομίσματα ]");
                         break;
                 }
+
+                System.out.println();
+                int slot = pickSlot(scanner, SaveManager.listSaves(), "  ΑΠΟΘΗΚΕΥΣΗ ΣΕ", false);
+                if (SaveManager.hasSave(slot)) SaveManager.deleteSave(slot);
+                state.setCurrentSlot(slot);
+
                 System.out.println();
                 System.out.println("====================================================");
-
                 printSmooth(state.getStoryIntro(), 25);
                 System.out.println("----------------------------------------------------");
             }
@@ -178,6 +185,41 @@ public class Main {
                 }
             } else {
                 System.out.println("\n  Άγνωστη εντολή. Χρησιμοποίησε drop [όνομα] ή x.");
+            }
+        }
+    }
+
+    /**
+     * Εμφανίζει τη λίστα save slots και ζητά από τον παίκτη να επιλέξει έναν.
+     *
+     * @param onlyExisting  αν true, μόνο slots που έχουν save είναι επιλέξιμα (για φόρτωση)
+     */
+    public static int pickSlot(Scanner scanner, List<SaveManager.SaveInfo> saves,
+                                String title, boolean onlyExisting) {
+        while (true) {
+            System.out.println("====================================================");
+            System.out.println(title);
+            System.out.println("====================================================");
+            for (SaveManager.SaveInfo info : saves) {
+                System.out.println(info.toMenuLine());
+            }
+            System.out.println("----------------------------------------------------");
+            System.out.print("  Επιλογή (1-" + SaveManager.MAX_SLOTS + "): ");
+
+            String input = scanner.nextLine().trim();
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice < 1 || choice > SaveManager.MAX_SLOTS) {
+                    System.out.println("  Μη έγκυρη επιλογή. Δοκίμασε ξανά.");
+                    continue;
+                }
+                if (onlyExisting && !saves.get(choice - 1).exists) {
+                    System.out.println("  Αυτό το slot είναι άδειο. Επίλεξε άλλο.");
+                    continue;
+                }
+                return choice;
+            } catch (NumberFormatException e) {
+                System.out.println("  Γράψε έναν αριθμό.");
             }
         }
     }

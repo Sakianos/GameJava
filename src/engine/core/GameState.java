@@ -19,6 +19,7 @@ public class GameState {
     private Map<String, Boolean> flags = new HashMap<>();
     private String difficulty = "Κανονικό";
     private int maxInventorySize = 4;
+    private int currentSlot = 1;
 
     public void addRoom(Room room) {
         rooms.put(room.getId().toLowerCase(), room);
@@ -101,6 +102,9 @@ public class GameState {
 
     public int getMaxInventorySize() { return maxInventorySize; }
     public boolean isInventoryFull() { return inventory.size() >= maxInventorySize; }
+
+    public int getCurrentSlot() { return currentSlot; }
+    public void setCurrentSlot(int slot) { this.currentSlot = slot; }
 
     public Item removeFromInventoryByName(String name) {
         for (Map.Entry<String, Item> entry : inventory.entrySet()) {
