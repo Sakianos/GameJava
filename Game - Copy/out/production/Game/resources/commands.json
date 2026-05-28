@@ -1,0 +1,34 @@
+[
+  {
+    "className": "LookCommand",
+    "aliases": ["look", "view", "examine", "δες"]
+  },
+  {
+    "className": "MoveCommand",
+    "aliases": ["go", "move", "πήγαινε", "περπάτα"]
+  },
+  {
+    "className": "TalkCommand",
+    "aliases": ["talk", "speak", "μίλα", "πες"]
+  },
+  {
+    "className": "GrabCommand",
+    "aliases": ["take", "grab", "πάρε", "σήκωσε"]
+  },
+  {
+    "className": "GiveCommand",
+    "aliases": ["give", "δώσε", "πλήρωσε"]
+  },
+  {
+    "className": "UseCommand",
+    "aliases": ["use", "χρησιμοποίησε"]
+  },
+  {
+    "className": "CheckCommand",
+    "aliases": ["check", "έλεγχος", "αποθήκη"]
+  },
+  {
+    "className": "ListCommand",
+    "aliases": ["list", "βοήθεια", "help"]
+  }
+]

@@ -1,0 +1,173 @@
+[
+  {
+    "id": "move",
+    "aliases": [
+      "go",
+      "move",
+      "πήγαινε",
+      "περπάτα",
+      "κινήσου",
+      "βάδισε",
+      "πρόχωρα",
+      "κατεύθυνση",
+      "δρόμο",
+      "ταξίδι"
+    ],
+    "description": "Move to another room",
+    "logic": {
+      "type": "move",
+      "conditions": [],
+      "success": {
+        "message": "\nΠηγαίνεις {direction}...\n--- {roomName} ---\n{roomDescription}",
+        "consequences": [{ "type": "moveToRoom", "direction": "{argument}" }]
+      },
+      "failure": {
+        "message": "Δεν μπορείς να πας από εκεί!"
+      }
+    }
+  },
+  {
+    "id": "talk",
+    "aliases": [
+      "talk",
+      "speak",
+      "μίλα",
+      "πες",
+      "συνομίλησε",
+      "διάλεξε",
+      "λέγε",
+      "ρώτησε",
+      "ρητορεία",
+      "επικοινωνία"
+    ],
+    "description": "Talk to an NPC",
+    "logic": {
+      "type": "talk",
+      "conditions": [{ "type": "npcInRoom", "npc": "{argument}" }],
+      "success": {
+        "message": "Μιλάς με {argument}...",
+        "consequences": []
+      },
+      "failure": {
+        "message": "Δεν υπάρχει τέτοιος χαρακτήρας εδώ."
+      }
+    }
+  },
+  {
+    "id": "grab",
+    "aliases": [
+      "grab",
+      "take",
+      "πάρε",
+      "σήκωσε",
+      "αγγίξε",
+      "συλλάβε",
+      "κατέχω",
+      "αποθήκευση",
+      "διαθέσω"
+    ],
+    "description": "Pick up an item",
+    "logic": {
+      "type": "grab",
+      "conditions": [{ "type": "itemInRoom", "item": "{argument}" }],
+      "success": {
+        "message": "Πήρες το {argument}.",
+        "consequences": [
+          { "type": "moveItemToInventory", "item": "{argument}" }
+        ]
+      },
+      "failure": {
+        "message": "Δεν υπάρχει τέτοιο αντικείμενο εδώ."
+      }
+    }
+  },
+  {
+    "id": "use",
+    "aliases": [
+      "use",
+      "χρησιμοποίησε",
+      "εφάρμοσε",
+      "δοκίμασε",
+      "ενεργοποίησε",
+      "ανάφλεξη",
+      "ενεργό",
+      "λειτουργία"
+    ],
+    "description": "Use item on target",
+    "logic": {
+      "type": "use",
+      "conditions": [{ "type": "hasItem", "item": "{item}" }],
+      "success": {
+        "message": "Χρησιμοποιείς το {item}...",
+        "consequences": []
+      },
+      "failure": {
+        "message": "Δεν έχεις αυτό το αντικείμενο."
+      }
+    }
+  },
+  {
+    "id": "examine",
+    "aliases": [
+      "look",
+      "examine",
+      "δες",
+      "κοίτα",
+      "εξέταση",
+      "παρατήρησε",
+      "ξεσκόνισε",
+      "θέα"
+    ],
+    "description": "Examine something",
+    "logic": {
+      "type": "examine",
+      "conditions": [],
+      "success": {
+        "message": "{description}",
+        "consequences": []
+      },
+      "failure": {
+        "message": "Δεν υπάρχει τέτοιο πράγμα εδώ."
+      }
+    }
+  },
+  {
+    "id": "check",
+    "aliases": [
+      "check",
+      "έλεγχος",
+      "αποθήκη",
+      "αποθήκευση",
+      "ιδιοκτησία",
+      "σακίδιο"
+    ],
+    "description": "Check inventory",
+    "logic": {
+      "type": "check",
+      "conditions": [],
+      "success": {
+        "message": "Έχεις: {inventory}",
+        "consequences": []
+      },
+      "failure": {
+        "message": ""
+      }
+    }
+  },
+  {
+    "id": "list",
+    "aliases": ["list", "βοήθεια", "help", "τι", "δυνατό", "ενέργειες"],
+    "description": "List available actions",
+    "logic": {
+      "type": "list",
+      "conditions": [],
+      "success": {
+        "message": "Διαθέσιμες ενέργειες: {actions}",
+        "consequences": []
+      },
+      "failure": {
+        "message": ""
+      }
+    }
+  }
+]

@@ -1,0 +1,94 @@
+{
+  "articles": [
+    "ο", "η", "το", "οι", "τα",
+    "τον", "την", "τους", "τις",
+    "ένα", "ένας", "μία", "μια",
+    "the", "a", "an"
+  ],
+
+  "noise_words": ["up", "down"],
+
+  "prepositions": {
+    "on": [
+      "σε", "στο", "στη", "στην", "στον", "στα", "στις",
+      "πάνω", "επάνω", "on", "upon", "onto"
+    ],
+    "with": ["με", "μαζί", "with", "using"],
+    "to":   ["προς", "κατά", "για", "to", "toward", "towards"]
+  },
+
+  "directions": {
+    "βόρεια": "north", "βορράς": "north", "βορρά": "north",
+    "north": "north", "n": "north",
+    "νότια": "south", "νότος": "south", "νότο": "south",
+    "south": "south", "s": "south",
+    "ανατολικά": "east", "ανατολή": "east",
+    "east": "east", "e": "east",
+    "δυτικά": "west", "δύση": "west",
+    "west": "west", "w": "west",
+    "πάνω": "up", "up": "up", "u": "up",
+    "κάτω": "down", "down": "down", "d": "down",
+    "μέσα": "in", "εντός": "in", "in": "in", "enter": "in",
+    "έξω": "out", "εκτός": "out", "out": "out", "exit": "out",
+    "πίσω": "back", "back": "back",
+    "bathroom": "bathroom", "bedroom": "bedroom",
+    "market": "out", "castle": "castle"
+  },
+
+  "verb_behaviors": {
+    "move":    "direction",
+    "grab":    "noun_on_target",
+    "look":    "noun_optional",
+    "examine": "noun_optional",
+    "talk":    "noun_strip_preps",
+    "use":     "noun_on_target",
+    "give":    "noun_on_target",
+    "check":   "empty",
+    "list":    "empty"
+  },
+
+  "intent_patterns": [
+    {
+      "description": "Ερώτηση για αντικείμενα πάνω/μέσα σε κάτι — 'τι έχει πάνω στο τραπέζι'",
+      "pattern": "τι (έχει|υπάρχει|βλέπω|βρίσκεται).*(πάνω|μέσα|σε|στο|στη|στον|στην)\\s+(\\w+)",
+      "capture_group": 3,
+      "maps_to": { "verb": "look", "target": "{capture}" }
+    },
+    {
+      "description": "Ερώτηση τι έχει κάποιος — 'τι έχεις εσύ', 'τι έχει η γυναίκα'",
+      "pattern": "τι (έχει[ςε]?|κρατ[αά]ς?|φέρει[ςε]?)\\s*(\\w+)?",
+      "capture_group": 2,
+      "maps_to": { "verb": "talk", "target": "{capture_or_npc}" }
+    },
+    {
+      "description": "Παρατήρηση ήχου — 'ακούω φασαρία', 'ακούω κάτι έξω'",
+      "pattern": "ακού[ωε]\\s+(\\w+)",
+      "capture_group": 1,
+      "maps_to": { "verb": "look", "target": "{capture}" }
+    },
+    {
+      "description": "Παρατήρηση μυρωδιάς — 'μυρίζει καπνός'",
+      "pattern": "μυρίζ(ει|ω)\\s*(\\w+)?",
+      "capture_group": 2,
+      "maps_to": { "verb": "look", "target": "{capture_or_room}" }
+    },
+    {
+      "description": "Κοίτα από παράθυρο — 'κοιτάω έξω', 'βλέπω στο παράθυρο'",
+      "pattern": "(κοιτ[αάώ]+|βλέπ[ωε]).*(παράθυρ|έξω|αυλ)",
+      "capture_group": 0,
+      "maps_to": { "verb": "look", "target": "window" }
+    },
+    {
+      "description": "Ρωτά γενικά — 'τι είναι εκεί', 'ποιος είναι αυτός'",
+      "pattern": "(τι|ποιο[ςα]?|πού) (είναι|βρίσκεται)\\s*(\\w+)?",
+      "capture_group": 3,
+      "maps_to": { "verb": "look", "target": "{capture_or_room}" }
+    },
+    {
+      "description": "Μίλα σε NPC με ρήμα ρώτησης — 'ρώτα τη γυναίκα'",
+      "pattern": "(πες|ρώτα|ρώτησε|ρωτ[αά])\\s+(\\w+)",
+      "capture_group": 2,
+      "maps_to": { "verb": "talk", "target": "{capture}" }
+    }
+  ]
+}

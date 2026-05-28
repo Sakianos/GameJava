@@ -1,0 +1,223 @@
+{
+  "events": [
+    {
+      "id": "talk_king_throne_room",
+      "trigger": {
+        "action": "talk",
+        "target": "king"
+      },
+      "conditions": [
+        { "type": "room", "value": "throne_room" },
+        { "type": "flag", "key": "plotTwistTriggered", "value": false }
+      ],
+      "responses": [
+        {
+          "text": "Ο Βασιλιάς σηκώνεται και σε κοιτάζει απ' ευθείας στα μάτια.\n\n'ΤΕΛΟΣ ΠΑΝΤΩΝ, ΗΡΟΑ! Μετά από αιώνες, επέστρεψες.\nΑλλά δεν σε κάλεσα εδώ για να σε μεγαλοποιήσω.\nΣε κάλεσα γιατί SΕ ΦΟΒΑΜΑΙ.\n\nΉσουν ο πιο δυνατός στρατηγός μου. Και τώρα, είσαι ελεύθερος, μακριά από τη δύναμή μου.\nΔεν μπορώ να το αφήσω. Πρέπει να αποδείξεις τη λατρεία σου.\n\nΈχεις ΤΡΕΙΣ δρόμους να διαλέξεις:\n\n1️⃣ ΠΙΣΤΟΣ - Αποδέξου τη δύναμα του Βασιλιά. Γίνε ξανά στρατηγός και άφησε την οικογένεία σου.\n   (Πληκτρολόγησε: loyaltyPath)\n\n2️⃣ ΕΛΕΥΘΕΡΙΑ - Φύγε από τη δύναμα. Δηλητηρίασε το κρασί και κρυφτείς στα σκοτεινά περάσματα.\n   (Πληκτρολόγησε: freedomPath)\n\n3️⃣ ΑΠΟΚΑΛΥΨΗ - Ανακάλυψε την αλήθεια για τη μαγεία που με κρατά.\n   Εκθέστε με και ίδρυσε ένα νέο βασίλειο.\n   (Πληκτρολόγησε: revelationPath)'"
+        }
+      ],
+      "consequences": [
+        { "type": "setFlag", "key": "plotTwistTriggered", "value": true },
+        { "type": "setFlag", "key": "atCrossroads", "value": true }
+      ]
+    },
+    {
+      "id": "choose_loyalty_path",
+      "trigger": {
+        "action": "custom",
+        "input": "loyaltypath"
+      },
+      "conditions": [
+        { "type": "flag", "key": "atCrossroads", "value": true },
+        { "type": "flag", "key": "loyaltyPath", "value": false }
+      ],
+      "responses": [
+        {
+          "text": "'Σωστή επιλογή,' λέει ο Βασιλιάς με κακό χαμόγελο.\n'Πλέον ανήκεις σε μένα. Και δεν μπορείς να ξανανέρθεις στο σπίτι σου.\n\nΤα παιδιά σου και η γυναίκα σου θα σε ξεχάσουν. Μόνο εγώ θα σ' αγαπώ.'\n\nΈνιωσες ότι κάτι σπάσηκε μέσα σου. Ήμαρτες, αλλά ήταν πολύ αργά."
+        }
+      ],
+      "consequences": [
+        { "type": "setFlag", "key": "loyaltyPath", "value": true },
+        { "type": "setFlag", "key": "finalChoiceMade", "value": true }
+      ]
+    },
+    {
+      "id": "choose_freedom_path",
+      "trigger": {
+        "action": "custom",
+        "input": "freedompath"
+      },
+      "conditions": [
+        { "type": "flag", "key": "atCrossroads", "value": true },
+        { "type": "flag", "key": "freedomPath", "value": false }
+      ],
+      "responses": [
+        {
+          "text": "Παίρνεις ένα βαθύ ανάσημα.\n\n'ΟΧΙ,' λες ήσυχα. 'Θα επιλέξω την ελευθερία.'\n\nΟ Βασιλιάς φωνάζει με οργή, αλλά είναι πολύ αργά.\nΤρέχεις προς τα κελάρια. Πρέπει να δηλητηριάσεις το κρασί και να ξεφύγεις\nπριν οι φρουροί σε πιάσουν.\n\nΤο μόνο που έχεις είναι η ελπίδα ότι το δάσος θα σε υποδεχθεί ξανά."
+        }
+      ],
+      "consequences": [
+        { "type": "setFlag", "key": "freedomPath", "value": true },
+        { "type": "addToInventory", "item": "royal_poison" }
+      ]
+    },
+    {
+      "id": "choose_revelation_path",
+      "trigger": {
+        "action": "custom",
+        "input": "revelationpath"
+      },
+      "conditions": [
+        { "type": "flag", "key": "atCrossroads", "value": true },
+        { "type": "flag", "key": "revelationPath", "value": false }
+      ],
+      "responses": [
+        {
+          "text": "Σηκώνεσαι με σιγουριά.\n\n'Δεν θα σου υπακούσω. Θα ανακαλύψω την αλήθεια για τα μυστικά σου.'\n\nΟ Βασιλιάς γελάει με ένα φοβερό γέλιο.\n\n'Νομίζεις ότι μπορείς να κρατήσεις μυστικά από μένα; Πήγαινε. Αναζήτησε.\nΑλλά όταν θα βρεις την αλήθεια, δεν θα υπάρχει επιστροφή.'\n\nΈνιωσες ότι κάτι άνοιξε. Κάτι σκοτάδι και μαγικό. Πρέπει να μάθεις περισσότερα."
+        }
+      ],
+      "consequences": [
+        { "type": "setFlag", "key": "revelationPath", "value": true },
+        { "type": "setFlag", "key": "canAccessLibrary", "value": true }
+      ]
+    },
+    {
+      "id": "use_poison_on_wine",
+      "trigger": {
+        "action": "use",
+        "item": "royal_poison",
+        "target": "wine_vat"
+      },
+      "conditions": [
+        { "type": "room", "value": "royal_cellars" },
+        { "type": "hasItem", "value": "royal_poison" },
+        { "type": "flag", "key": "freedomPath", "value": true }
+      ],
+      "responses": [
+        {
+          "text": "Κρυφά, γέμισες το δηλητήριο στο μεγαλύτερο βαρέλι.\nΤο κρασί πλέον αναδύει μια περίεργη, μεταλλική μυρωδιά.\n\nΤώρα μπορείς να φύγεις. Ο Βασιλιάς και οι δορυφόροι του θα πέσουν πολύ σύντομα.\nΚαι εσύ θα είσαι ελεύθερος."
+        }
+      ],
+      "consequences": [
+        { "type": "removeItem", "item": "royal_poison" },
+        { "type": "setFlag", "key": "isWinePoisoned", "value": true },
+        { "type": "addToInventory", "item": "escape_rope" }
+      ]
+    },
+    {
+      "id": "talk_scribe_library",
+      "trigger": {
+        "action": "talk",
+        "target": "scribe"
+      },
+      "conditions": [
+        { "type": "room", "value": "royal_library" },
+        { "type": "flag", "key": "revelationPath", "value": true }
+      ],
+      "responses": [
+        {
+          "text": "Ο Γραμματέας κοιτάζει γύρω του προσεκτικά πριν μιλήσει.\n\n'Τέλος πάντων! Κάποιος που αποδέχεται την αλήθεια!'\nψιθυρίζει. 'Ο Βασιλιάς είναι κλειδωμένος σε ένα αρχαίο τελετουργικό.\nΤο αγάλμα στο θάλαμο τελετουργικών εκτός της πόλης είναι το κλειδί.\n\nΑν το σπάσεις, ο κύκλος θα σπάσει. Και ο Βασιλιάς θα χάσει τη δύναμή του.\n\nΠάρε αυτά τα βιβλία ως απόδειξη. Θα χρειαστείς να εκθέσεις την αλήθεια.'"
+        }
+      ],
+      "consequences": [
+        { "type": "addToInventory", "item": "ancient_book" },
+        { "type": "addToInventory", "item": "evidence_scroll" },
+        { "type": "setFlag", "key": "scribeSpoken", "value": true },
+        { "type": "setFlag", "key": "knowAboutCurse", "value": true }
+      ]
+    },
+    {
+      "id": "use_cursed_relic",
+      "trigger": {
+        "action": "use",
+        "item": "cursed_relic",
+        "target": "altar"
+      },
+      "conditions": [
+        { "type": "room", "value": "ritual_chamber" },
+        { "type": "hasItem", "value": "cursed_relic" },
+        { "type": "flag", "key": "knowAboutCurse", "value": true }
+      ],
+      "responses": [
+        {
+          "text": "Σπάς το καταραμένο αγάλμα πάνω στο δάπεδο!\n\nΜια φοβερή αλλαγή συμβαίνει. Ακούς κραυγές και ουρλιαχτά από το κάστρο.\nΟ κύκλος είναι σπασμένος. Η δύναμη που έδεσε τον Βασιλιά για αιώνες\nέχει εξαφανιστεί.\n\nΤώρα πρέπει να επιστρέψεις και να αντιμετωπίσεις τον Βασιλιά.\nΗ αλήθεια περιμένει να ειπωθεί."
+        }
+      ],
+      "consequences": [
+        { "type": "removeItem", "item": "cursed_relic" },
+        { "type": "setFlag", "key": "curseIsBroken", "value": true },
+        { "type": "setFlag", "key": "kingIsWeakened", "value": true }
+      ]
+    },
+    {
+      "id": "expose_king",
+      "trigger": {
+        "action": "use",
+        "item": "ancient_book",
+        "target": "king"
+      },
+      "conditions": [
+        { "type": "room", "value": "throne_room" },
+        { "type": "flag", "key": "kingIsWeakened", "value": true },
+        { "type": "flag", "key": "curseIsBroken", "value": true }
+      ],
+      "responses": [
+        {
+          "text": "Ανοίγεις τα βιβλία και δείχνεις όλα τα αποδεικτικά στοιχεία.\n\n'ΒΑΣΙΛΙΑ! ΤΟ ΒΑΣΙΛΕΙΟ ΔΕΝ ΕΙΝΑΙ ΔΙΚ ΣΟΥ!'\nφωνάζεις. 'Δεν έχεις δύναμη! Έχεις μόνο μαγεία και εξαπάτηση!'\n\nΗ αίθουσα σιωπά. Οι φρουροί δεν ξέρουν τι να κάνουν.\nΟ Βασιλιάς πέφτει από το θρόνο, αδύναμος και άρρωστος.\n\nΚαι τότε, ο λαός εγείρεται. Η νέα εποχή αρχίζει."
+        }
+      ],
+      "consequences": [
+        { "type": "setFlag", "key": "kingExposed", "value": true },
+        { "type": "setFlag", "key": "finalChoiceMade", "value": true },
+        { "type": "setFlag", "key": "newOrderBegins", "value": true }
+      ]
+    },
+    {
+      "id": "give_coins_to_guard",
+      "trigger": {
+        "action": "give",
+        "amount_min": 50
+      },
+      "conditions": [
+        { "type": "room", "value": "royal_cellars" },
+        { "type": "hasCoins", "amount": 50 },
+        { "type": "flag", "key": "loyaltyPath", "value": true }
+      ],
+      "responses": [
+        {
+          "text": "Δίνεις χρήματα στον φρουρό. Τα παίρνει και κάνει στην άκρη με ένα πονηρό χαμόγελο.\n\n'Καλά, καλά. Θα ξεχάσω ότι ήσουν εδώ. Αλλά ξέρω τι κάνεις.\nΚαι τώρα, δεν έχεις άλλη επιλογή αλλά να υπακούσεις τον Βασιλιά.'"
+        }
+      ],
+      "consequences": [
+        { "type": "removeCoins", "amount": 50 },
+        { "type": "setFlag", "key": "bribedGuard", "value": true }
+      ]
+    },
+    {
+      "id": "move_between_rooms",
+      "trigger": {
+        "action": "move",
+        "direction": "*"
+      },
+      "conditions": [{ "type": "roomHasExit", "value": true }],
+      "responses": [
+        {
+          "text": "Κινήθηκες..."
+        }
+      ],
+      "consequences": []
+    },
+    {
+      "id": "examine_room",
+      "trigger": {
+        "action": "examine"
+      },
+      "conditions": [],
+      "responses": [
+        {
+          "text": ""
+        }
+      ],
+      "consequences": []
+    }
+  ]
+}
