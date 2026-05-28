@@ -6,6 +6,7 @@ import engine.core.GameState;
 import engine.core.Item;
 import engine.core.Room;
 import engine.core.CommandConfig;
+import engine.core.EventExecutor;
 import engine.core.SaveManager;
 import engine.parser.CommandParser;
 import engine.parser.GreekSemanticParser;
@@ -37,7 +38,14 @@ public class Main {
                 System.err.println("Προσοχή: Ο Semantic Parser δεν φορτώθηκε: " + e.getMessage());
             }
 
-            CommandParser parser = new CommandParser(registry, greekSemanticParser);
+            EventExecutor eventExecutor = null;
+            try {
+                eventExecutor = new EventExecutor("src/resources/events.json");
+            } catch (IOException e) {
+                System.err.println("Προσοχή: Τα events δεν φορτώθηκαν: " + e.getMessage());
+            }
+
+            CommandParser parser = new CommandParser(registry, greekSemanticParser, eventExecutor);
 
             // --- ΚΥΡΙΟ MENU ---
             System.out.println("====================================================");
