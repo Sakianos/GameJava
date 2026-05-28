@@ -1,0 +1,77 @@
+{
+  "articles": [
+    "ο", "η", "το", "οι", "τα",
+    "τον", "την", "τους", "τις",
+    "ένα", "ένας", "μία", "μια",
+    "the", "a", "an"
+  ],
+
+  "noise_words": [
+    "up", "down"
+  ],
+
+  "prepositions": {
+    "on": [
+      "σε", "στο", "στη", "στην", "στον", "στα", "στις",
+      "πάνω", "επάνω",
+      "on", "upon", "onto"
+    ],
+    "with": [
+      "με", "μαζί",
+      "with", "using"
+    ],
+    "to": [
+      "προς", "κατά", "για",
+      "to", "toward", "towards"
+    ]
+  },
+
+  "directions": {
+    "βόρεια":    "north",
+    "βορράς":   "north",
+    "βορρά":    "north",
+    "north":    "north",
+    "n":        "north",
+    "νότια":    "south",
+    "νότος":    "south",
+    "νότο":     "south",
+    "south":    "south",
+    "s":        "south",
+    "ανατολικά":"east",
+    "ανατολή":  "east",
+    "east":     "east",
+    "e":        "east",
+    "δυτικά":   "west",
+    "δύση":     "west",
+    "west":     "west",
+    "w":        "west",
+    "πάνω":     "up",
+    "up":       "up",
+    "u":        "up",
+    "κάτω":     "down",
+    "down":     "down",
+    "d":        "down",
+    "μέσα":     "in",
+    "εντός":    "in",
+    "in":       "in",
+    "enter":    "in",
+    "έξω":      "out",
+    "εκτός":    "out",
+    "out":      "out",
+    "exit":     "out",
+    "πίσω":     "back",
+    "back":     "back"
+  },
+
+  "verb_behaviors": {
+    "move":    "direction",
+    "grab":    "noun",
+    "look":    "noun_optional",
+    "examine": "noun_optional",
+    "talk":    "noun_strip_preps",
+    "use":     "noun_on_target",
+    "give":    "noun_on_target",
+    "check":   "empty",
+    "list":    "empty"
+  }
+}
